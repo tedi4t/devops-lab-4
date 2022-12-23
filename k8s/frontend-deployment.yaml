@@ -1,1 +1,26 @@
-# TODO: Your code
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: FE
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: tedi4t/devops-lab-4:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BASE_URL
+              value: "http://${BACKEND_HOST}:${BACKEND_PORT}/api"
+            - name: PORT
+              value: "3000"
